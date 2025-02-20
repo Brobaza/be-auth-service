@@ -1,0 +1,78 @@
+port: 3001
+grpcUrl: '0.0.0.0:3002'
+isProd: false
+prefix: /auths
+version: '1'
+
+frontendUrl: http://localhost:3000
+verificationPath:
+  register: /verify-email
+  resetPassword: /reset-password
+
+redis:
+  host: localhost
+  port: 6379
+  password: ''
+  database: 0
+  prefix: 'dailydev'
+
+postgres:
+  host: localhost
+  port: 5432
+  username: postgres
+  password: postgres
+  database: postgres
+
+agenda:
+  uri: mongodb://localhost:27017
+  collection: jobs
+  database: agenda
+
+mongo:
+  uri: mongodb://localhost:27017
+  username: root
+  password: '123456'
+  port: 27017
+
+smtp:
+  host: localhost
+  port: 1025
+  username: ''
+  password: ''
+  secure: false
+  from: 'no-reply@daily-devAgendaModule.com'
+
+verificationExpiresIn:
+  register: 10 # minutes
+  resetPassword: 10 # minutes
+
+jwt:
+  accessTokenExpiresIn: 3 # days
+  refreshTokenExpiresIn: 30 # days
+
+kafka:
+  brokers:
+    - localhost:9092
+  groupId: chat-notification-service
+  topics:
+    - name: topic1
+      partitions: 3
+      replicationFactor: 1
+
+services:
+  auth:
+    port: 0.0.0.0:5005
+    prefix: /api
+    version: '1'
+  user:
+    port: 0.0.0.0:5002
+    prefix: /api
+    version: '1'
+  mail:
+    port: 0.0.0.0:5010
+    prefix: /api
+    version: '1'
+  chat:
+    port: 0.0.0.0:5003
+    prefix: /api
+    version: '1'

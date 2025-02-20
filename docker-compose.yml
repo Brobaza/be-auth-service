@@ -1,0 +1,17 @@
+services:
+  be-auth-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: be-auth-service
+    restart: unless-stopped
+    ports:
+      - 3001:3001
+    volumes:
+      - .:/app
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
