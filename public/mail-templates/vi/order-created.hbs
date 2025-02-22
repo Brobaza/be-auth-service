@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Xác Nhận Đơn Hàng</title>
+    <style>
+      body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px;
+      margin: 0 auto; padding: 20px; } .header { text-align: center; margin-bottom: 30px; }
+      .order-details { background: #f9f9f9; padding: 20px; border-radius: 5px; margin-bottom: 20px;
+      } .footer { text-align: center; font-size: 12px; color: #666; margin-top: 30px; }
+    </style>
+  </head>
+  <body>
+    <div class='header'>
+      <h1>Cảm Ơn Bạn Đã Đặt Hàng!</h1>
+    </div>
+
+    <div class='order-details'>
+      <h2>Chi Tiết Đơn Hàng</h2>
+      <p>Mã Đơn Hàng: {{orderNumber}}</p>
+      <p>Ngày Đặt Hàng: {{orderDate}}</p>
+      <p>Tổng Số Tiền: {{totalAmount}}</p>
+    </div>
+
+    <p>Xin chào {{customerName}},</p>
+    <p>Chúng tôi rất vui thông báo rằng đơn hàng của bạn đã được nhận và đang được xử lý. Chúng tôi
+      sẽ gửi email khác cho bạn khi đơn hàng được vận chuyển.</p>
+
+    <h3>Tóm Tắt Đơn Hàng:</h3>
+    <ul>
+      {{#each items}}
+        <li>{{this.name}} - {{this.quantity}} x {{this.price}}</li>
+      {{/each}}
+    </ul>
+
+    <p>Nếu bạn có bất kỳ câu hỏi nào về đơn hàng, vui lòng liên hệ với đội ngũ chăm sóc khách hàng
+      của chúng tôi.</p>
+
+    <div class='footer'>
+      <p>Đây là email tự động, vui lòng không trả lời email này.</p>
+      <p>&copy; {{currentYear}} Tên Công Ty Của Bạn. Bảo lưu mọi quyền.</p>
+    </div>
+  </body>
+</html>

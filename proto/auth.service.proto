@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package authProtoService;
+
+service AuthService {
+    rpc Login(LoginDTO) returns (LoginResp) {}
+    rpc Register(RegisterDTO) returns (RegisterResp) {}
+    rpc VerifyAccessToken(TokenDTO) returns (VerifyResp) {}
+    rpc verifySession(SessionDTO) returns (VerifyResp) {}
+    rpc Logout(LogoutDTO) returns (StatusDTO) {}
+};
+
+message LogoutDTO {
+    string userId = 1;
+    string sessionId = 2;
+    string token = 3;
+}
+
+message StatusDTO {
+    string message = 1;
+    string code = 2;
+    string errMessage = 3;
+}
+
+message SessionDTO {
+    string id = 1;
+}
+
+message TokenDTO {
+    string token = 1;
+}
+
+message VerifyRespDTO {
+    string id = 1;
+    string decodedUser = 2;
+}
+
+message VerifyResp {
+    VerifyRespDTO data = 1;
+    StatusDTO metadata = 2;
+}
+
+message LoginDTO {
+    string username = 1;
+    string password = 2;
+}
+
+message LoginRespDTO {
+    string access_token = 1;
+    string refresh_token = 2;
+    string access_token_expire_at = 3;
+    string refresh_token_expire_at = 4;
+}
+
+message LoginResp {
+    LoginRespDTO data = 1;
+    StatusDTO metadata = 2;
+}
+
+message RegisterDTO {
+    string email = 1;
+    string password = 2;
+    string firstName = 3;
+    string middleName = 4;
+    string lastName = 5;
+}
+
+message RegisterRespDTO {
+    string access_token = 1;
+    string refresh_token = 2;
+    string access_token_expire_at = 3;
+    string refresh_token_expire_at = 4;
+}
+
+message RegisterResp {
+    RegisterRespDTO data = 1;
+    StatusDTO metadata = 2;
+}
