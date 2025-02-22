@@ -1,19 +1,21 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { join } from 'path';
 import { AuthController } from './controllers/auth.controller';
 import { loadConfiguration } from './libs/config';
-import { AuthService } from './services/auth.service';
-import { Verification } from './models/interfaces/verification.entity';
-import { Session } from './models/interfaces/session.entity';
-import { ClientsModule, Transport } from '@nestjs/microservices';
 import {
   MICROSERVICE_PACKAGE_NAME,
   MICROSERVICE_SERVICE_NAME,
-  UserMicroServiceName,
 } from './libs/constants/microservice.name';
-import { join } from 'path';
 import AppLoggerService from './libs/logger';
+import { Session } from './models/interfaces/session.entity';
+import { Verification } from './models/interfaces/verification.entity';
+import { AuthService } from './services/auth.service';
+import { CacheModule } from '@nestjs/cache-manager';
+import { redisStore } from 'cache-manager-redis-yet';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -63,6 +65,24 @@ import AppLoggerService from './libs/logger';
         inject: [ConfigService],
       },
     ]),
+
+    CacheModule.registerAsync({
+      isGlobal: true,
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => {
+        const { host, port, database, password } = configService.get('redis');
+        return {
+          store: await redisStore({
+            database,
+            password,
+            socket: { host, port },
+          }),
+        };
+      },
+    }),
+
+    JwtModule.register({}),
   ],
   controllers: [AuthController],
   providers: [AuthService, AppLoggerService],
