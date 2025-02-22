@@ -86,7 +86,20 @@ export interface Configuration {
       version: string;
     };
   };
+  redisLock: {
+    driftFactor: number;
+    retryJitter: number;
+    retryCount: number;
+    retryDelay: number;
+  };
 }
+
+const redisLockSchema = joi.object({
+  driftFactor: joi.number().required(),
+  retryJitter: joi.number().required(),
+  retryCount: joi.number().required(),
+  retryDelay: joi.number().required(),
+});
 
 const redisSchema = joi.object({
   host: joi.string().required(),
@@ -198,6 +211,7 @@ const configSchema = joi.object<Configuration>({
   mongo: mongoSchema.required(),
   kafka: kafkaSchema.required(),
   services: servicesSchema.required(),
+  redisLock: redisLockSchema.required(),
 });
 
 export const loadConfiguration = (): Configuration => {

@@ -6,6 +6,30 @@ service UserService {
     rpc GetUser(GetUserRequest) returns (GetUserResponse) {}
     rpc UpdateUser(UpdateUserRequest) returns (ManageUserResponse) {}
     rpc CreateUser(CreateUserRequest) returns (ManageUserResponse) {}
+    rpc IsTakenEmail(IsTakenEmailRequest) returns (IsTakenEmailResponse) {}
+    rpc IsTakenPhoneNumber(IsTakenPhoneNumberRequest) returns (IsTakenPhoneNumberResponse) {}
+    rpc GetUserByUserName(GetUserByUserNameRequest) returns (ManageUserResponse) {}
+}
+
+message GetUserByUserNameRequest {
+    string username = 1;
+    string password = 2;
+}
+
+message IsTakenEmailRequest {
+    string email = 1;
+}
+
+message IsTakenEmailResponse {
+    bool isTaken = 1;
+}
+
+message IsTakenPhoneNumberRequest {
+    string phoneNumber = 1;
+}
+
+message IsTakenPhoneNumberResponse {
+    bool isTaken = 1;
 }
 
 message GetUserRequest {
