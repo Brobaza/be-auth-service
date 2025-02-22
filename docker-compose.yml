@@ -10,8 +10,8 @@ services:
     volumes:
       - .:/app
     networks:
-      - mynetwork
+      - global_network
 
 networks:
-  mynetwork:
-    driver: bridge
+  global_network:
+    external: true

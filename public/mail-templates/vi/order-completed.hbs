@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Đơn Hàng Hoàn Thành</title>
+    <style>
+      body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px;
+      margin: 0 auto; padding: 20px; } .header { text-align: center; margin-bottom: 30px; } .content
+      { background: #f9f9f9; padding: 20px; border-radius: 5px; } .footer { text-align: center;
+      margin-top: 30px; font-size: 12px; color: #666; }
+    </style>
+  </head>
+  <body>
+    <div class='header'>
+      <h1>Đơn Hàng Đã Hoàn Thành</h1>
+    </div>
+
+    <div class='content'>
+      <p>Xin chào {{customerName}},</p>
+
+      <p>Chúc mừng! Đơn hàng #{{orderNumber}} của bạn đã được hoàn thành thành công.</p>
+
+      <p>Chi tiết đơn hàng:</p>
+      <ul>
+        <li>Mã đơn hàng: {{orderNumber}}</li>
+        <li>Ngày hoàn thành: {{completionDate}}</li>
+        <li>Tổng số tiền: {{totalAmount}}</li>
+      </ul>
+
+      <h3>Sản phẩm đã mua:</h3>
+      <ul>
+        {{#each items}}
+          <li>{{this.name}} - {{this.quantity}} x {{this.price}}</li>
+        {{/each}}
+      </ul>
+
+      <p>Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi. Chúng tôi hy vọng bạn hài lòng với sản phẩm đã
+        mua.</p>
+
+      <p>Nếu bạn có bất kỳ câu hỏi hoặc thắc mắc nào về đơn hàng của mình, vui lòng liên hệ với đội
+        ngũ hỗ trợ khách hàng của chúng tôi.</p>
+
+      <p>Trân trọng,<br />
+        Đội ngũ
+        {{companyName}}
+      </p>
+    </div>
+
+    <div class='footer'>
+      <p>Đây là email tự động, vui lòng không trả lời trực tiếp email này.</p>
+      <p>{{companyName}} - {{companyAddress}}</p>
+    </div>
+  </body>
+</html>

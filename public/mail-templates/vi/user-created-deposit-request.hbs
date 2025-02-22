@@ -1,0 +1,54 @@
+<html lang='vi'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Yêu Cầu Nạp Tiền Mới</title>
+    <style>
+      body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 20px; }
+      .container { max-width: 600px; margin: 0 auto; background: #fff; padding: 20px; border-radius:
+      5px; box-shadow: 0 0 10px rgba(0,0,0,0.1); } .header { text-align: center; margin-bottom:
+      30px; } .details { background: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0; }
+      .details-row { display: flex; justify-content: space-between; margin: 10px 0; } .footer {
+      margin-top: 30px; text-align: center; color: #7f8c8d; font-size: 12px; }
+    </style>
+  </head>
+  <body>
+    <div class='container'>
+      <div class='header'>
+        <h1>Yêu Cầu Nạp Tiền Mới</h1>
+      </div>
+
+      <p>Đã có một yêu cầu nạp tiền mới được tạo.</p>
+
+      <div class='details'>
+        <div class='details-row'>
+          <strong>Người dùng:</strong>
+          <span>{{userName}}</span>
+        </div>
+        <div class='details-row'>
+          <strong>Số tiền:</strong>
+          <span>{{amount}}</span>
+        </div>
+        <div class='details-row'>
+          <strong>Phương thức thanh toán:</strong>
+          <span>{{paymentMethod}}</span>
+        </div>
+        <div class='details-row'>
+          <strong>Thời gian yêu cầu:</strong>
+          <span>{{requestTime}}</span>
+        </div>
+        <div class='details-row'>
+          <strong>Số tham chiếu:</strong>
+          <span>{{referenceNumber}}</span>
+        </div>
+      </div>
+
+      <p>Vui lòng xem xét và xử lý yêu cầu nạp tiền này trong thời gian sớm nhất có thể.</p>
+
+      <div class='footer'>
+        <p>Đây là thông báo tự động từ hệ thống của bạn.</p>
+        <p>&copy; 2024 Tên Công Ty Của Bạn. Bảo lưu mọi quyền.</p>
+      </div>
+    </div>
+  </body>
+</html>
