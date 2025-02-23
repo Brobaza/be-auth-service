@@ -10,6 +10,14 @@ import { Observable } from 'rxjs';
 
 export const protobufPackage = 'authProtoService';
 
+export interface GetPublicKeyDTO {
+  key: string;
+}
+
+export interface PublicKeyResp {
+  key: string;
+}
+
 export interface LogoutDTO {
   userId: string;
   sessionId: string;
@@ -24,6 +32,7 @@ export interface StatusDTO {
 
 export interface SessionDTO {
   id: string;
+  type: string;
 }
 
 export interface TokenDTO {
@@ -32,7 +41,7 @@ export interface TokenDTO {
 
 export interface VerifyRespDTO {
   id: string;
-  decodedUser: string;
+  decodedUserId: string;
 }
 
 export interface VerifyResp {
@@ -58,11 +67,11 @@ export interface LoginResp {
 }
 
 export interface RegisterDTO {
+  displayName: string;
+  phoneNumber: string;
   email: string;
   password: string;
-  firstName: string;
-  middleName: string;
-  lastName: string;
+  gender: string;
 }
 
 export interface RegisterRespDTO {
@@ -70,6 +79,7 @@ export interface RegisterRespDTO {
   refreshToken: string;
   accessTokenExpireAt: string;
   refreshTokenExpireAt: string;
+  verifyToken: string;
 }
 
 export interface RegisterResp {
@@ -89,6 +99,8 @@ export interface AuthServiceClient {
   verifySession(request: SessionDTO): Observable<VerifyResp>;
 
   logout(request: LogoutDTO): Observable<StatusDTO>;
+
+  getPublicKey(request: GetPublicKeyDTO): Observable<PublicKeyResp>;
 }
 
 export interface AuthServiceController {
@@ -111,6 +123,10 @@ export interface AuthServiceController {
   logout(
     request: LogoutDTO,
   ): Promise<StatusDTO> | Observable<StatusDTO> | StatusDTO;
+
+  getPublicKey(
+    request: GetPublicKeyDTO,
+  ): Promise<PublicKeyResp> | Observable<PublicKeyResp> | PublicKeyResp;
 }
 
 export function AuthServiceControllerMethods() {
@@ -121,6 +137,7 @@ export function AuthServiceControllerMethods() {
       'verifyAccessToken',
       'verifySession',
       'logout',
+      'getPublicKey',
     ];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(

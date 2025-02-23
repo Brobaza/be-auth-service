@@ -16,6 +16,9 @@ import { AuthService } from './services/auth.service';
 import { CacheModule } from '@nestjs/cache-manager';
 import { redisStore } from 'cache-manager-redis-yet';
 import { JwtModule } from '@nestjs/jwt';
+import { SessionsService } from './services/session.service';
+import { VerificationService } from './services/verification.service';
+import { CacheDomain } from './domains/cache.domain';
 
 @Module({
   imports: [
@@ -59,7 +62,7 @@ import { JwtModule } from '@nestjs/jwt';
           options: {
             protoPath: join(__dirname, '../proto/user.service.proto'),
             package: MICROSERVICE_PACKAGE_NAME.USER_SERVICE,
-            url: configService.get<string>('services.user.url'),
+            url: configService.get<string>('services.user.port'),
           },
         }),
         inject: [ConfigService],
@@ -85,6 +88,12 @@ import { JwtModule } from '@nestjs/jwt';
     JwtModule.register({}),
   ],
   controllers: [AuthController],
-  providers: [AuthService, AppLoggerService],
+  providers: [
+    AuthService,
+    AppLoggerService,
+    SessionsService,
+    VerificationService,
+    CacheDomain,
+  ],
 })
 export class AppModule {}

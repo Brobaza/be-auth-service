@@ -17,6 +17,7 @@ import { get, isEmpty } from 'lodash';
 import { VerificationType } from 'src/enums/verifycation.type';
 import { LoginRequest } from 'src/models/requests/login-request.interface';
 import { LoginResponse } from 'src/models/response/login.response';
+import { OK_RESPONSE } from 'src/utils/constants';
 
 @Injectable()
 export class AuthService {
@@ -118,5 +119,10 @@ export class AuthService {
     const result = await this.sessionService.generate(id);
 
     return result;
+  }
+
+  async logout(userId: string, sessionId: string, token: string) {
+    await this.sessionService.delete({ sessionId, userId, accessToken: token });
+    return OK_RESPONSE;
   }
 }
