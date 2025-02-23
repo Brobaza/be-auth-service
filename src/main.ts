@@ -1,12 +1,13 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { ReflectionService } from '@grpc/reflection';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
-import { join } from 'path';
-import helmet from 'helmet';
 import * as compression from 'compression';
 import * as cookieParser from 'cookie-parser';
-import { ValidationPipe, VersioningType } from '@nestjs/common';
+import helmet from 'helmet';
+import { join } from 'path';
+import { AppModule } from './app.module';
 import { AUTH_PROTO_SERVICE_PACKAGE_NAME } from './gen/auth.service';
 import AppLoggerService from './libs/logger';
 
@@ -35,6 +36,9 @@ async function bootstrap() {
       protoPath: join(process.cwd(), 'proto/auth.service.proto'),
       package: AUTH_PROTO_SERVICE_PACKAGE_NAME,
       url: configService.get('services.auth.port'),
+      onLoadPackageDefinition: (pkg, server) => {
+        new ReflectionService(pkg).addToServer(server);
+      },
     },
   });
 

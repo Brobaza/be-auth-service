@@ -7,8 +7,10 @@ services:
     restart: unless-stopped
     ports:
       - 3001:3001
+      - 3002:3002
     volumes:
       - .:/app
+      - ./proto:/proto
     networks:
       - global_network
 
