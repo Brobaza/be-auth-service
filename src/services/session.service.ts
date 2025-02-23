@@ -1,8 +1,4 @@
-import {
-    Injectable,
-    Logger,
-    UnauthorizedException
-} from '@nestjs/common';
+import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -12,10 +8,10 @@ import { ErrorDictionary } from 'src/enums/error.dictionary';
 import { RedisKey } from 'src/enums/redis-key.enums';
 import { SessionType } from 'src/enums/session-type.enum';
 import {
-    ACCESS_TOKEN_PRIVATE_KEY,
-    ACCESS_TOKEN_PUBLIC_KEY,
-    REFRESH_TOKEN_PRIVATE_KEY,
-    REFRESH_TOKEN_PUBLIC_KEY,
+  ACCESS_TOKEN_PRIVATE_KEY,
+  ACCESS_TOKEN_PUBLIC_KEY,
+  REFRESH_TOKEN_PRIVATE_KEY,
+  REFRESH_TOKEN_PUBLIC_KEY,
 } from 'src/jwt/jwt.constraints';
 import { BaseService } from 'src/libs/base/base.service';
 import { Session } from 'src/models/interfaces/session.entity';
@@ -209,7 +205,7 @@ export class SessionsService extends BaseService<Session> {
       return { sessionId: session.id, userId: session.userId };
     }
 
-    return { id, userId };
+    return { sessionId: id, userId };
   }
 
   async verifyToken(token: string, type: SessionType) {

@@ -61,7 +61,7 @@ kafka:
 
 services:
   auth:
-    port: 0.0.0.0:3002
+    port: '0.0.0.0:3002'
     prefix: /api
     version: '1'
   user:
@@ -78,7 +78,7 @@ services:
     version: '1'
 
 redisLock:
-  drift_factor: 0.01
-  retry_jitter: 200
-  retry_count: 100
-  retry_delay: 200
+  driftFactor: 0.01
+  retryJitter: 200
+  retryCount: 100
+  retryDelay: 200

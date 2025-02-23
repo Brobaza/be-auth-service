@@ -3,7 +3,6 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Cache } from 'cache-manager';
 import Redis from 'ioredis';
-import { head, map } from 'lodash';
 import Redlock from 'redlock';
 
 @Injectable()
@@ -21,6 +20,9 @@ export class CacheDomain {
 
     this.redisClients = new Redis({ host, port, db: database, password });
 
+    this.redisClients.on('connect', () => console.log('Connected to Redis'));
+    this.redisClients.on('error', (err) => console.error('Redis Error:', err));
+
     this.redisLockClient = new Redlock([this.redisClients], {
       driftFactor: this.configService.get<number>('redis_lock.drift_factor'),
       retryJitter: this.configService.get<number>('redis_lock.retry_jitter'),
@@ -33,6 +35,10 @@ export class CacheDomain {
 
   getCacheManager() {
     return this.cacheManager;
+  }
+
+  getLockClient() {
+    return this.redisLockClient;
   }
 
   async withLock<T>(

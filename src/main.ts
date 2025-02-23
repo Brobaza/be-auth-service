@@ -24,12 +24,17 @@ async function bootstrap() {
 
   appModule.use(cookieParser());
 
-  await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
+  console.log(
+    'configService.get("services.auth.port")',
+    configService.get('services.auth.port'),
+  );
+
+  appModule.connectMicroservice<MicroserviceOptions>({
     transport: Transport.GRPC,
     options: {
       protoPath: join(process.cwd(), 'proto/auth.service.proto'),
       package: AUTH_PROTO_SERVICE_PACKAGE_NAME,
-      url: configService.get('grpcUrl'),
+      url: configService.get('services.auth.port'),
     },
   });
 

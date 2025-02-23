@@ -8,7 +8,17 @@ service AuthService {
     rpc VerifyAccessToken(TokenDTO) returns (VerifyResp) {}
     rpc verifySession(SessionDTO) returns (VerifyResp) {}
     rpc Logout(LogoutDTO) returns (StatusDTO) {}
+
+    rpc GetPublicKey(GetPublicKeyDTO) returns (PublicKeyResp) {}
 };
+
+message GetPublicKeyDTO {
+    string key = 1;
+}
+
+message PublicKeyResp {
+    string key = 1;
+}
 
 message LogoutDTO {
     string userId = 1;
@@ -24,6 +34,7 @@ message StatusDTO {
 
 message SessionDTO {
     string id = 1;
+    string type = 2;
 }
 
 message TokenDTO {
@@ -32,7 +43,7 @@ message TokenDTO {
 
 message VerifyRespDTO {
     string id = 1;
-    string decodedUser = 2;
+    string decodedUserId = 2;
 }
 
 message VerifyResp {
@@ -58,11 +69,11 @@ message LoginResp {
 }
 
 message RegisterDTO {
-    string email = 1;
-    string password = 2;
-    string firstName = 3;
-    string middleName = 4;
-    string lastName = 5;
+    string displayName = 1;
+    string phoneNumber = 2;
+    string email = 3;
+    string password = 4;
+    string gender = 5;
 }
 
 message RegisterRespDTO {
@@ -70,6 +81,7 @@ message RegisterRespDTO {
     string refresh_token = 2;
     string access_token_expire_at = 3;
     string refresh_token_expire_at = 4;
+    string verifyToken = 5;
 }
 
 message RegisterResp {
