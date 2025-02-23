@@ -1,9 +1,13 @@
+import { CacheModule } from '@nestjs/cache-manager';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { redisStore } from 'cache-manager-redis-yet';
 import { join } from 'path';
 import { AuthController } from './controllers/auth.controller';
+import { CacheDomain } from './domains/cache.domain';
 import { loadConfiguration } from './libs/config';
 import {
   MICROSERVICE_PACKAGE_NAME,
@@ -13,12 +17,8 @@ import AppLoggerService from './libs/logger';
 import { Session } from './models/interfaces/session.entity';
 import { Verification } from './models/interfaces/verification.entity';
 import { AuthService } from './services/auth.service';
-import { CacheModule } from '@nestjs/cache-manager';
-import { redisStore } from 'cache-manager-redis-yet';
-import { JwtModule } from '@nestjs/jwt';
 import { SessionsService } from './services/session.service';
 import { VerificationService } from './services/verification.service';
-import { CacheDomain } from './domains/cache.domain';
 
 @Module({
   imports: [
