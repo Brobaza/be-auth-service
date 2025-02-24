@@ -2,6 +2,7 @@ import {
   ConflictException,
   Inject,
   Injectable,
+  Logger,
   UnauthorizedException,
 } from '@nestjs/common';
 import { SessionsService } from './session.service';
@@ -22,6 +23,7 @@ import { OK_RESPONSE } from 'src/utils/constants';
 @Injectable()
 export class AuthService {
   private userDomain: UserServiceClient;
+  logger = new Logger(AuthService.name);
 
   constructor(
     private readonly sessionService: SessionsService,
@@ -42,7 +44,10 @@ export class AuthService {
     const isTakenEmail = await firstValueFrom(
       this.userDomain.isTakenEmail({ email }),
     );
-    if (isTakenEmail) {
+
+    this.logger.log('isTakenEmail: ', isTakenEmail);
+
+    if (isTakenEmail.isTaken) {
       throw new ConflictException({
         code: ErrorDictionary.EMAIL_ALREADY_TAKEN,
       });
@@ -53,7 +58,10 @@ export class AuthService {
         phoneNumber,
       }),
     );
-    if (isTakenUsername) {
+
+    this.logger.log('isTakenUsername: ', isTakenUsername);
+
+    if (isTakenUsername.isTaken) {
       throw new ConflictException({
         code: ErrorDictionary.USERNAME_ALREADY_TAKEN,
       });
@@ -72,6 +80,8 @@ export class AuthService {
         password: get(dto, 'password', ''),
       }),
     );
+
+    this.logger.log('createUser id: ', userId);
 
     if (code !== '200' || !isEmpty(errMessage)) {
       throw new ConflictException({

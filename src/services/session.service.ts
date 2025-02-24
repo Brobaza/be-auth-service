@@ -40,10 +40,10 @@ export class SessionsService extends BaseService<Session> {
     const payload = { id: sessionId };
 
     const accessTokenExpiresIn = this.configService.get<number>(
-      'jwt.access_token_expires_in',
+      'jwt.accessTokenExpiresIn',
     );
     const refreshTokenExpiresIn = this.configService.get<number>(
-      'jwt.refresh_token_expires_in',
+      'jwt.refreshTokenExpiresIn',
     );
 
     const accessToken = this.jwtService.sign(payload, {

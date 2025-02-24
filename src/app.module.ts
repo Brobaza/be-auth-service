@@ -62,7 +62,7 @@ import { VerificationService } from './services/verification.service';
           options: {
             protoPath: join(__dirname, '../proto/user.service.proto'),
             package: MICROSERVICE_PACKAGE_NAME.USER_SERVICE,
-            url: configService.get<string>('services.user.port'),
+            url: `${configService.get<string>('services.user.container_name')}:${configService.get<string>('services.user.port')}`,
           },
         }),
         inject: [ConfigService],

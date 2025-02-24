@@ -1,7 +1,7 @@
 port: 3001
-grpcUrl: '0.0.0.0:3002'
 isProd: false
-prefix: /auths
+grpcUrl: '0.0.0.0:3002'
+prefix: /api
 version: '1'
 
 frontendUrl: http://localhost:3000
@@ -61,24 +61,41 @@ kafka:
 
 services:
   auth:
-    port: '0.0.0.0:3002'
     prefix: /api
     version: '1'
+    container_name: be-auth-service
+    port: '3002'
   user:
-    port: 0.0.0.0:3004
     prefix: /api
     version: '1'
+    container_name: be-user-service
+    port: '3004'
   mail:
-    port: 0.0.0.0:5010
     prefix: /api
     version: '1'
+    container_name: be-user-service
+    port: '3004'
   chat:
-    port: 0.0.0.0:5003
     prefix: /api
     version: '1'
+    container_name: be-user-service
+    port: '3004'
 
 redisLock:
   driftFactor: 0.01
   retryJitter: 200
   retryCount: 100
   retryDelay: 200
+
+verification:
+  enable_default_code: true
+  limit_time: 60
+  length:
+    token: 36
+    code: 6
+  register:
+    path: /auth/verify
+    expires_in: 600
+  reset_password:
+    path: /auth/reset-password
+    expires_in: 600
