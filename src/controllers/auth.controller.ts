@@ -105,6 +105,8 @@ export class AuthController implements AuthServiceController {
         metadata: { code: '200', message: 'OK', errMessage: '' },
       };
     } catch (error) {
+      console.log('>>> error: ', error);
+      console.log('>>> message: ', error.message);
       this.logger.error(error);
 
       return {

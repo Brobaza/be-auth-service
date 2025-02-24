@@ -69,21 +69,25 @@ export interface Configuration {
       port: string;
       prefix: string;
       version: string;
+      container_name: string;
     };
     user: {
       port: string;
       prefix: string;
       version: string;
+      container_name: string;
     };
     mail: {
       port: string;
       prefix: string;
       version: string;
+      container_name: string;
     };
     chat: {
       port: string;
       prefix: string;
       version: string;
+      container_name: string;
     };
   };
   redisLock: {
@@ -91,6 +95,22 @@ export interface Configuration {
     retryJitter: number;
     retryCount: number;
     retryDelay: number;
+  };
+  verification: {
+    enable_default_code: boolean;
+    length: {
+      code: number;
+      token: number;
+    };
+    limit_time: number;
+    register: {
+      expires_in: number;
+      path: string;
+    };
+    reset_password: {
+      expires_in: number;
+      path: string;
+    };
   };
 }
 
@@ -174,21 +194,42 @@ const servicesSchema = joi.object({
     port: joi.string().required(),
     prefix: joi.string().required(),
     version: joi.string().required(),
+    container_name: joi.string().required(),
   }),
   user: joi.object({
     port: joi.string().required(),
     prefix: joi.string().required(),
     version: joi.string().required(),
+    container_name: joi.string().required(),
   }),
   mail: joi.object({
     port: joi.string().required(),
     prefix: joi.string().required(),
     version: joi.string().required(),
+    container_name: joi.string().required(),
   }),
   chat: joi.object({
     port: joi.string().required(),
     prefix: joi.string().required(),
     version: joi.string().required(),
+    container_name: joi.string().required(),
+  }),
+});
+
+const verificationSchema = joi.object({
+  enable_default_code: joi.boolean().required(),
+  length: joi.object({
+    code: joi.number().required(),
+    token: joi.number().required(),
+  }),
+  limit_time: joi.number().required(),
+  register: joi.object({
+    expires_in: joi.number().required(),
+    path: joi.string().required(),
+  }),
+  reset_password: joi.object({
+    expires_in: joi.number().required(),
+    path: joi.string().required(),
   }),
 });
 
@@ -212,6 +253,7 @@ const configSchema = joi.object<Configuration>({
   kafka: kafkaSchema.required(),
   services: servicesSchema.required(),
   redisLock: redisLockSchema.required(),
+  verification: verificationSchema.required(),
 });
 
 export const loadConfiguration = (): Configuration => {
