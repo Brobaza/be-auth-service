@@ -20,6 +20,15 @@ export interface GetAddressRequest {
   userId: string;
 }
 
+export interface GetDefaultAddressRequest {
+  userId: string;
+}
+
+export interface GetDefaultAddressResponse {
+  address: Address | undefined;
+  metadata: ManageUserResponse | undefined;
+}
+
 export interface GetAddressResponse {
   address: Address | undefined;
   metadata: ManageUserResponse | undefined;
@@ -177,6 +186,10 @@ export interface UserServiceClient {
   ): Observable<ManageAddressResponse>;
 
   getAddress(request: GetAddressRequest): Observable<GetAddressResponse>;
+
+  getDefaultAddress(
+    request: GetDefaultAddressRequest,
+  ): Observable<GetDefaultAddressResponse>;
 }
 
 export interface UserServiceController {
@@ -255,6 +268,13 @@ export interface UserServiceController {
     | Promise<GetAddressResponse>
     | Observable<GetAddressResponse>
     | GetAddressResponse;
+
+  getDefaultAddress(
+    request: GetDefaultAddressRequest,
+  ):
+    | Promise<GetDefaultAddressResponse>
+    | Observable<GetDefaultAddressResponse>
+    | GetDefaultAddressResponse;
 }
 
 export function UserServiceControllerMethods() {
@@ -271,6 +291,7 @@ export function UserServiceControllerMethods() {
       'updateAddress',
       'deleteAddress',
       'getAddress',
+      'getDefaultAddress',
     ];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(

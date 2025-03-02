@@ -10,12 +10,13 @@ service UserService {
     rpc IsTakenPhoneNumber(IsTakenPhoneNumberRequest) returns (IsTakenPhoneNumberResponse) {}
     rpc GetUserByUserName(GetUserByUserNameRequest) returns (ManageUserResponse) {}
 
-    // * address
+    // * address 
     rpc getAddresses(GetAddressesRequest) returns (GetAddressesResponse) {}
     rpc createAddress(CreateAddressRequest) returns (ManageAddressResponse) {}
     rpc updateAddress(UpdateAddressRequest) returns (ManageAddressResponse) {}
     rpc deleteAddress(DeleteAddressRequest) returns (ManageAddressResponse) {}
     rpc getAddress(GetAddressRequest) returns (GetAddressResponse) {}
+    rpc getDefaultAddress(GetDefaultAddressRequest) returns (GetDefaultAddressResponse) {}
 }
 
 message DeleteAddressRequest {
@@ -26,6 +27,15 @@ message DeleteAddressRequest {
 message GetAddressRequest {
     string id = 1;
     string userId = 2;
+}
+
+message GetDefaultAddressRequest {
+    string userId = 1;
+}
+
+message GetDefaultAddressResponse {
+    Address address = 1;
+    ManageUserResponse metadata = 2;
 }
 
 message GetAddressResponse {
