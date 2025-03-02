@@ -9,6 +9,71 @@ service UserService {
     rpc IsTakenEmail(IsTakenEmailRequest) returns (IsTakenEmailResponse) {}
     rpc IsTakenPhoneNumber(IsTakenPhoneNumberRequest) returns (IsTakenPhoneNumberResponse) {}
     rpc GetUserByUserName(GetUserByUserNameRequest) returns (ManageUserResponse) {}
+
+    // * address
+    rpc getAddresses(GetAddressesRequest) returns (GetAddressesResponse) {}
+    rpc createAddress(CreateAddressRequest) returns (ManageAddressResponse) {}
+    rpc updateAddress(UpdateAddressRequest) returns (ManageAddressResponse) {}
+    rpc deleteAddress(DeleteAddressRequest) returns (ManageAddressResponse) {}
+    rpc getAddress(GetAddressRequest) returns (GetAddressResponse) {}
+}
+
+message DeleteAddressRequest {
+    string id = 1;
+    string userId = 2;
+}
+
+message GetAddressRequest {
+    string id = 1;
+    string userId = 2;
+}
+
+message GetAddressResponse {
+    Address address = 1;
+    ManageUserResponse metadata = 2;
+}
+
+message GetAddressesRequest {
+    string userId = 1;
+    int32 limit = 2;
+    int32 page = 3;
+}
+
+message Address {
+    string id = 1;
+    bool isDefault = 2;
+    string userId = 3;
+    string title = 4;
+    string address = 5;
+    string type = 6;
+}
+
+message GetAddressesResponse {
+    repeated Address addresses = 1;
+    int32 total = 2;
+    ManageUserResponse metadata = 3;
+}
+
+message CreateAddressRequest {
+    string userId = 1;
+    string title = 2;
+    string address = 3;
+    string type = 4;
+    bool isDefault = 5;
+}
+
+message ManageAddressResponse {
+    string id = 1;
+    ManageUserResponse metadata = 2;
+}
+
+message UpdateAddressRequest {
+    string id = 1;
+    string userId = 2;
+    string title = 3;
+    string address = 4;
+    string type = 5;
+    bool isDefault = 6;
 }
 
 message GetUserByUserNameRequest {
