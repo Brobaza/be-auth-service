@@ -9,14 +9,24 @@ service UserService {
     rpc IsTakenEmail(IsTakenEmailRequest) returns (IsTakenEmailResponse) {}
     rpc IsTakenPhoneNumber(IsTakenPhoneNumberRequest) returns (IsTakenPhoneNumberResponse) {}
     rpc GetUserByUserName(GetUserByUserNameRequest) returns (ManageUserResponse) {}
+    rpc GetAllRelatedFriend(GetAllRelatedFriendRequest) returns (GetAllRelatedFriendResponse) {}
 
-    // * address 
+    // * address
     rpc getAddresses(GetAddressesRequest) returns (GetAddressesResponse) {}
     rpc createAddress(CreateAddressRequest) returns (ManageAddressResponse) {}
     rpc updateAddress(UpdateAddressRequest) returns (ManageAddressResponse) {}
     rpc deleteAddress(DeleteAddressRequest) returns (ManageAddressResponse) {}
     rpc getAddress(GetAddressRequest) returns (GetAddressResponse) {}
     rpc getDefaultAddress(GetDefaultAddressRequest) returns (GetDefaultAddressResponse) {}
+}
+
+message GetAllRelatedFriendRequest {
+    string userId = 1;
+}
+
+message GetAllRelatedFriendResponse {
+    repeated GetUserResponse friends = 1;
+    ManageUserResponse metadata = 2;
 }
 
 message DeleteAddressRequest {
@@ -113,9 +123,9 @@ message GetUserRequest {
 
 message GetUserResponse {
     string id = 1;
-    string display_name = 2;
-    string photo_url = 3;
-    string phone_number = 4;
+    string name = 2;
+    string avatar = 3;
+    string phoneNumber = 4;
     string country = 5;
     string address = 6;
     string state = 7;
@@ -126,12 +136,13 @@ message GetUserResponse {
     bool is_public = 12;
     string email = 13;
     string gender = 14;
+    string location = 15;
 }
 
 message UpdateUserRequest {
-    string display_name = 1;
+    string name = 1;
     string photo_url = 2;
-    string phone_number = 3;
+    string phoneNumber = 3;
     string country = 4;
     string address = 5;
     string state = 6;
@@ -142,6 +153,7 @@ message UpdateUserRequest {
     string email = 11;
     string gender = 12;
     string id = 13;
+    string location = 14;
 }
 
 message ManageUserResponse{
@@ -152,9 +164,10 @@ message ManageUserResponse{
 }
 
 message CreateUserRequest {
-    string display_name = 1;
+    string name = 1;
     string phoneNumber = 2;
     string email = 3;
     string gender = 4;
     string password = 5;
+    string location = 6;
 }

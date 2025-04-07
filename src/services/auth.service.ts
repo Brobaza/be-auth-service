@@ -53,17 +53,17 @@ export class AuthService {
       });
     }
 
-    const isTakenUsername = await firstValueFrom(
+    const isTakenPhoneNumber = await firstValueFrom(
       this.userDomain.isTakenPhoneNumber({
         phoneNumber,
       }),
     );
 
-    this.logger.log('isTakenUsername: ', isTakenUsername);
+    this.logger.log('isTakenPhoneNumber: ', isTakenPhoneNumber);
 
-    if (isTakenUsername.isTaken) {
+    if (isTakenPhoneNumber.isTaken) {
       throw new ConflictException({
-        code: ErrorDictionary.USERNAME_ALREADY_TAKEN,
+        code: ErrorDictionary.PHONE_NUMBER_ALREADY_TAKEN,
       });
     }
 
@@ -73,9 +73,10 @@ export class AuthService {
       errMessage,
     } = await firstValueFrom(
       this.userDomain.createUser({
-        displayName: get(dto, 'displayName', ''),
+        name: get(dto, 'name', ''),
         email: get(dto, 'email', ''),
         phoneNumber: get(dto, 'phoneNumber', ''),
+        location: get(dto, 'location', ''),
         gender: get(dto, 'gender', 'unknown'),
         password: get(dto, 'password', ''),
       }),

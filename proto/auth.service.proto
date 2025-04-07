@@ -69,11 +69,11 @@ message LoginResp {
 }
 
 message RegisterDTO {
-    string displayName = 1;
+    string name = 1;
     string phoneNumber = 2;
     string email = 3;
     string password = 4;
-    string gender = 5;
+    string location = 5;
 }
 
 message RegisterRespDTO {

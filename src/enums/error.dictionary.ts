@@ -56,6 +56,7 @@ export enum ErrorDictionary {
   TO_MANY_VERIFICATION_REQUEST = 'ToManyVerificationRequest',
   EMAIL_ALREADY_TAKEN = 'EmailAlreadyTaken',
   USERNAME_ALREADY_TAKEN = 'UsernameAlreadyTaken',
+  PHONE_NUMBER_ALREADY_TAKEN = 'PhoneNumberAlreadyTaken',
   USER_ALREADY_ADMIN = 'UserAlreadyAdmin',
   USER_ALREADY_INACTIVE = 'UserAlreadyInactive',
   USER_ALREADY_ACTIVE = 'UserAlreadyActive',

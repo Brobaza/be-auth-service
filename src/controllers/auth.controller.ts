@@ -72,8 +72,8 @@ export class AuthController implements AuthServiceController {
           refreshTokenExpireAt: '',
         },
         metadata: {
-          code: '500',
-          message: 'Internal Server Error',
+          code: JSON.stringify(get(error, 'response.status', 500)),
+          message: get(error, 'response.code', 'Internal Server Error'),
           errMessage: error.message,
         },
       };
@@ -84,7 +84,10 @@ export class AuthController implements AuthServiceController {
     try {
       this.logger.log('Registering user...');
 
-      const result = await this.authService.register(data);
+      const result = await this.authService.register({
+        ...data,
+        gender: get(data, 'gender', 'unknown'),
+      });
 
       const {
         accessToken,
@@ -105,8 +108,6 @@ export class AuthController implements AuthServiceController {
         metadata: { code: '200', message: 'OK', errMessage: '' },
       };
     } catch (error) {
-      console.log('>>> error: ', error);
-      console.log('>>> message: ', error.message);
       this.logger.error(error);
 
       return {
@@ -118,8 +119,8 @@ export class AuthController implements AuthServiceController {
           verifyToken: '',
         },
         metadata: {
-          code: '500',
-          message: 'Internal Server Error',
+          code: JSON.stringify(get(error, 'response.status', 500)),
+          message: get(error, 'response.code', 'Internal Server Error'),
           errMessage: error.message,
         },
       };
@@ -146,8 +147,8 @@ export class AuthController implements AuthServiceController {
       return {
         data: { id: '', decodedUserId: '' },
         metadata: {
-          code: '500',
-          message: 'Internal Server Error',
+          code: JSON.stringify(get(error, 'response.status', 500)),
+          message: get(error, 'response.code', 'Internal Server Error'),
           errMessage: error.message,
         },
       };
@@ -174,8 +175,8 @@ export class AuthController implements AuthServiceController {
       return {
         data: { id: '', decodedUserId: '' },
         metadata: {
-          code: '500',
-          message: 'Internal Server Error',
+          code: JSON.stringify(get(error, 'response.status', 500)),
+          message: get(error, 'response.code', 'Internal Server Error'),
           errMessage: error.message,
         },
       };
@@ -205,8 +206,8 @@ export class AuthController implements AuthServiceController {
       this.logger.error(error);
 
       return {
-        code: '500',
-        message: 'Internal Server Error',
+        code: JSON.stringify(get(error, 'response.status', 500)),
+        message: get(error, 'response.code', 'Internal Server Error'),
         errMessage: error.message,
       };
     }

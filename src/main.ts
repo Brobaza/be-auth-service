@@ -1,5 +1,5 @@
 import { ReflectionService } from '@grpc/reflection';
-import { ValidationPipe, VersioningType } from '@nestjs/common';
+import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
@@ -55,6 +55,13 @@ async function bootstrap() {
 
   await appModule.startAllMicroservices();
 
-  await appModule.listen(configService.get<number>('port'));
+  const port = configService.get<number>('port');
+
+  await appModule.listen(port, () => {
+    const logger: Logger = new Logger('Server connection');
+    logger.log(
+      `🔒Auth service has started successfully running on port ${port}`,
+    );
+  });
 }
 bootstrap();
