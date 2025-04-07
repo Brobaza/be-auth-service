@@ -2,7 +2,7 @@ services:
   be-auth-service:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.debug
     container_name: be-auth-service
     restart: unless-stopped
     ports:

@@ -1,0 +1,101 @@
+port: 3001
+isProd: false
+grpcUrl: '0.0.0.0:3002'
+prefix: /api
+version: '1'
+
+frontendUrl: http://localhost:3000
+verificationPath:
+  register: /verify-email
+  resetPassword: /reset-password
+
+redis:
+  host: redis
+  port: 6379
+  password: ''
+  database: 0
+  prefix: 'dailydev'
+
+postgres:
+  host: postgres
+  port: 5432
+  username: postgres
+  password: postgres
+  database: auth_service
+
+agenda:
+  uri: mongodb://localhost:27017
+  collection: jobs
+  database: agenda
+
+mongo:
+  uri: mongodb://mongo:27017
+  username: root
+  password: '123456'
+  port: 27017
+
+smtp:
+  host: localhost
+  port: 1025
+  username: ''
+  password: ''
+  secure: false
+  from: 'no-reply@daily-devAgendaModule.com'
+
+verificationExpiresIn:
+  register: 10 # minutes
+  resetPassword: 10 # minutes
+
+jwt:
+  accessTokenExpiresIn: 3 # days
+  refreshTokenExpiresIn: 30 # days
+
+kafka:
+  brokers:
+    - kafka:9092
+  groupId: chat-notification-service
+  topics:
+    - name: topic1
+      partitions: 3
+      replicationFactor: 1
+
+services:
+  auth:
+    prefix: /api
+    version: '1'
+    container_name: be-auth-service
+    port: '3002'
+  user:
+    prefix: /api
+    version: '1'
+    container_name: be-user-service
+    port: '3004'
+  mail:
+    prefix: /api
+    version: '1'
+    container_name: be-user-service
+    port: '3004'
+  chat:
+    prefix: /api
+    version: '1'
+    container_name: be-user-service
+    port: '3004'
+
+redisLock:
+  driftFactor: 0.01
+  retryJitter: 200
+  retryCount: 100
+  retryDelay: 200
+
+verification:
+  enable_default_code: true
+  limit_time: 60
+  length:
+    token: 36
+    code: 6
+  register:
+    path: /auth/verify
+    expires_in: 600
+  reset_password:
+    path: /auth/reset-password
+    expires_in: 600
