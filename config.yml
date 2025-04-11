@@ -52,8 +52,8 @@ jwt:
 
 kafka:
   brokers:
-    - localhost:9092
-  groupId: chat-notification-service
+    - kafka:29092
+  groupId: queue-service
   topics:
     - name: topic1
       partitions: 3

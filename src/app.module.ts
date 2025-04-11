@@ -19,6 +19,8 @@ import { Verification } from './models/interfaces/verification.entity';
 import { AuthService } from './services/auth.service';
 import { SessionsService } from './services/session.service';
 import { VerificationService } from './services/verification.service';
+import { ConsumerService } from './queue/base/consumer.base-queue';
+import { ProducerService } from './queue/base/producer.base-queue';
 
 @Module({
   imports: [
@@ -89,11 +91,20 @@ import { VerificationService } from './services/verification.service';
   ],
   controllers: [AuthController],
   providers: [
+    // * pla
     AuthService,
     AppLoggerService,
+
+    // * services
     SessionsService,
     VerificationService,
+
+    // * domain
     CacheDomain,
+
+    // * queue
+    ConsumerService,
+    ProducerService,
   ],
 })
 export class AppModule {}
