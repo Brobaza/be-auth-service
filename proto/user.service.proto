@@ -121,39 +121,51 @@ message GetUserRequest {
     string id = 1;
 }
 
+message UserAbout {
+    string work_role = 1;
+    string company = 2;
+    string country = 3;
+    int32 total_followers = 4;
+    int32 total_following = 5;
+    string quote = 6;
+    string facebook = 7;
+    string twitter = 8;
+    string linkedin = 9;
+    string instagram = 10;
+    string school = 11;
+}
+
 message GetUserResponse {
     string id = 1;
     string name = 2;
     string avatar = 3;
     string phoneNumber = 4;
-    string country = 5;
-    string address = 6;
-    string state = 7;
-    string city = 8;
-    string zip_code = 9;
-    string about = 10;
-    string role = 11;
-    bool is_public = 12;
-    string email = 13;
-    string gender = 14;
-    string location = 15;
+    string address = 5;
+    string location = 6;
+    UserAbout about = 7;
+    bool is_public = 8;
+    string email = 9;
+    string gender = 10;
+    string phone_verified_at = 11;
+    string email_verified_at = 12;
+    string status = 13;
+    string role = 14;
 }
 
 message UpdateUserRequest {
-    string name = 1;
-    string photo_url = 2;
-    string phoneNumber = 3;
-    string country = 4;
+    string id = 1;
+    string name = 2;
+    string avatar = 3;
+    string phoneNumber = 4;
     string address = 5;
-    string state = 6;
-    string city = 7;
-    string zipCode = 8;
-    string about = 9;
-    string role = 10;
-    string email = 11;
-    string gender = 12;
-    string id = 13;
-    string location = 14;
+    string location = 6;
+    UserAbout about = 7;
+    bool is_public = 8;
+    string email = 9;
+    string gender = 10;
+    string phone_verified_at = 11;
+    string email_verified_at = 12;
+    string status = 13;
 }
 
 message ManageUserResponse{

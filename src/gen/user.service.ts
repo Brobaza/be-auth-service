@@ -5,10 +5,10 @@
 // source: user.service.proto
 
 /* eslint-disable */
-import { GrpcMethod, GrpcStreamMethod } from '@nestjs/microservices';
-import { Observable } from 'rxjs';
+import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
+import { Observable } from "rxjs";
 
-export const protobufPackage = 'userProtoService';
+export const protobufPackage = "userProtoService";
 
 export interface GetAllRelatedFriendRequest {
   userId: string;
@@ -111,39 +111,51 @@ export interface GetUserRequest {
   id: string;
 }
 
+export interface UserAbout {
+  workRole: string;
+  company: string;
+  country: string;
+  totalFollowers: number;
+  totalFollowing: number;
+  quote: string;
+  facebook: string;
+  twitter: string;
+  linkedin: string;
+  instagram: string;
+  school: string;
+}
+
 export interface GetUserResponse {
   id: string;
   name: string;
   avatar: string;
   phoneNumber: string;
-  country: string;
   address: string;
-  state: string;
-  city: string;
-  zipCode: string;
-  about: string;
-  role: string;
+  location: string;
+  about: UserAbout | undefined;
   isPublic: boolean;
   email: string;
   gender: string;
-  location: string;
+  phoneVerifiedAt: string;
+  emailVerifiedAt: string;
+  status: string;
+  role: string;
 }
 
 export interface UpdateUserRequest {
+  id: string;
   name: string;
-  photoUrl: string;
+  avatar: string;
   phoneNumber: string;
-  country: string;
   address: string;
-  state: string;
-  city: string;
-  zipCode: string;
-  about: string;
-  role: string;
+  location: string;
+  about: UserAbout | undefined;
+  isPublic: boolean;
   email: string;
   gender: string;
-  id: string;
-  location: string;
+  phoneVerifiedAt: string;
+  emailVerifiedAt: string;
+  status: string;
 }
 
 export interface ManageUserResponse {
@@ -162,7 +174,7 @@ export interface CreateUserRequest {
   location: string;
 }
 
-export const USER_PROTO_SERVICE_PACKAGE_NAME = 'userProtoService';
+export const USER_PROTO_SERVICE_PACKAGE_NAME = "userProtoService";
 
 export interface UserServiceClient {
   getUser(request: GetUserRequest): Observable<GetUserResponse>;
@@ -173,174 +185,108 @@ export interface UserServiceClient {
 
   isTakenEmail(request: IsTakenEmailRequest): Observable<IsTakenEmailResponse>;
 
-  isTakenPhoneNumber(
-    request: IsTakenPhoneNumberRequest,
-  ): Observable<IsTakenPhoneNumberResponse>;
+  isTakenPhoneNumber(request: IsTakenPhoneNumberRequest): Observable<IsTakenPhoneNumberResponse>;
 
-  getUserByUserName(
-    request: GetUserByUserNameRequest,
-  ): Observable<ManageUserResponse>;
+  getUserByUserName(request: GetUserByUserNameRequest): Observable<ManageUserResponse>;
 
-  getAllRelatedFriend(
-    request: GetAllRelatedFriendRequest,
-  ): Observable<GetAllRelatedFriendResponse>;
+  getAllRelatedFriend(request: GetAllRelatedFriendRequest): Observable<GetAllRelatedFriendResponse>;
 
   /** address */
 
   getAddresses(request: GetAddressesRequest): Observable<GetAddressesResponse>;
 
-  createAddress(
-    request: CreateAddressRequest,
-  ): Observable<ManageAddressResponse>;
+  createAddress(request: CreateAddressRequest): Observable<ManageAddressResponse>;
 
-  updateAddress(
-    request: UpdateAddressRequest,
-  ): Observable<ManageAddressResponse>;
+  updateAddress(request: UpdateAddressRequest): Observable<ManageAddressResponse>;
 
-  deleteAddress(
-    request: DeleteAddressRequest,
-  ): Observable<ManageAddressResponse>;
+  deleteAddress(request: DeleteAddressRequest): Observable<ManageAddressResponse>;
 
   getAddress(request: GetAddressRequest): Observable<GetAddressResponse>;
 
-  getDefaultAddress(
-    request: GetDefaultAddressRequest,
-  ): Observable<GetDefaultAddressResponse>;
+  getDefaultAddress(request: GetDefaultAddressRequest): Observable<GetDefaultAddressResponse>;
 }
 
 export interface UserServiceController {
-  getUser(
-    request: GetUserRequest,
-  ): Promise<GetUserResponse> | Observable<GetUserResponse> | GetUserResponse;
+  getUser(request: GetUserRequest): Promise<GetUserResponse> | Observable<GetUserResponse> | GetUserResponse;
 
   updateUser(
     request: UpdateUserRequest,
-  ):
-    | Promise<ManageUserResponse>
-    | Observable<ManageUserResponse>
-    | ManageUserResponse;
+  ): Promise<ManageUserResponse> | Observable<ManageUserResponse> | ManageUserResponse;
 
   createUser(
     request: CreateUserRequest,
-  ):
-    | Promise<ManageUserResponse>
-    | Observable<ManageUserResponse>
-    | ManageUserResponse;
+  ): Promise<ManageUserResponse> | Observable<ManageUserResponse> | ManageUserResponse;
 
   isTakenEmail(
     request: IsTakenEmailRequest,
-  ):
-    | Promise<IsTakenEmailResponse>
-    | Observable<IsTakenEmailResponse>
-    | IsTakenEmailResponse;
+  ): Promise<IsTakenEmailResponse> | Observable<IsTakenEmailResponse> | IsTakenEmailResponse;
 
   isTakenPhoneNumber(
     request: IsTakenPhoneNumberRequest,
-  ):
-    | Promise<IsTakenPhoneNumberResponse>
-    | Observable<IsTakenPhoneNumberResponse>
-    | IsTakenPhoneNumberResponse;
+  ): Promise<IsTakenPhoneNumberResponse> | Observable<IsTakenPhoneNumberResponse> | IsTakenPhoneNumberResponse;
 
   getUserByUserName(
     request: GetUserByUserNameRequest,
-  ):
-    | Promise<ManageUserResponse>
-    | Observable<ManageUserResponse>
-    | ManageUserResponse;
+  ): Promise<ManageUserResponse> | Observable<ManageUserResponse> | ManageUserResponse;
 
   getAllRelatedFriend(
     request: GetAllRelatedFriendRequest,
-  ):
-    | Promise<GetAllRelatedFriendResponse>
-    | Observable<GetAllRelatedFriendResponse>
-    | GetAllRelatedFriendResponse;
+  ): Promise<GetAllRelatedFriendResponse> | Observable<GetAllRelatedFriendResponse> | GetAllRelatedFriendResponse;
 
   /** address */
 
   getAddresses(
     request: GetAddressesRequest,
-  ):
-    | Promise<GetAddressesResponse>
-    | Observable<GetAddressesResponse>
-    | GetAddressesResponse;
+  ): Promise<GetAddressesResponse> | Observable<GetAddressesResponse> | GetAddressesResponse;
 
   createAddress(
     request: CreateAddressRequest,
-  ):
-    | Promise<ManageAddressResponse>
-    | Observable<ManageAddressResponse>
-    | ManageAddressResponse;
+  ): Promise<ManageAddressResponse> | Observable<ManageAddressResponse> | ManageAddressResponse;
 
   updateAddress(
     request: UpdateAddressRequest,
-  ):
-    | Promise<ManageAddressResponse>
-    | Observable<ManageAddressResponse>
-    | ManageAddressResponse;
+  ): Promise<ManageAddressResponse> | Observable<ManageAddressResponse> | ManageAddressResponse;
 
   deleteAddress(
     request: DeleteAddressRequest,
-  ):
-    | Promise<ManageAddressResponse>
-    | Observable<ManageAddressResponse>
-    | ManageAddressResponse;
+  ): Promise<ManageAddressResponse> | Observable<ManageAddressResponse> | ManageAddressResponse;
 
   getAddress(
     request: GetAddressRequest,
-  ):
-    | Promise<GetAddressResponse>
-    | Observable<GetAddressResponse>
-    | GetAddressResponse;
+  ): Promise<GetAddressResponse> | Observable<GetAddressResponse> | GetAddressResponse;
 
   getDefaultAddress(
     request: GetDefaultAddressRequest,
-  ):
-    | Promise<GetDefaultAddressResponse>
-    | Observable<GetDefaultAddressResponse>
-    | GetDefaultAddressResponse;
+  ): Promise<GetDefaultAddressResponse> | Observable<GetDefaultAddressResponse> | GetDefaultAddressResponse;
 }
 
 export function UserServiceControllerMethods() {
   return function (constructor: Function) {
     const grpcMethods: string[] = [
-      'getUser',
-      'updateUser',
-      'createUser',
-      'isTakenEmail',
-      'isTakenPhoneNumber',
-      'getUserByUserName',
-      'getAllRelatedFriend',
-      'getAddresses',
-      'createAddress',
-      'updateAddress',
-      'deleteAddress',
-      'getAddress',
-      'getDefaultAddress',
+      "getUser",
+      "updateUser",
+      "createUser",
+      "isTakenEmail",
+      "isTakenPhoneNumber",
+      "getUserByUserName",
+      "getAllRelatedFriend",
+      "getAddresses",
+      "createAddress",
+      "updateAddress",
+      "deleteAddress",
+      "getAddress",
+      "getDefaultAddress",
     ];
     for (const method of grpcMethods) {
-      const descriptor: any = Reflect.getOwnPropertyDescriptor(
-        constructor.prototype,
-        method,
-      );
-      GrpcMethod('UserService', method)(
-        constructor.prototype[method],
-        method,
-        descriptor,
-      );
+      const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
+      GrpcMethod("UserService", method)(constructor.prototype[method], method, descriptor);
     }
     const grpcStreamMethods: string[] = [];
     for (const method of grpcStreamMethods) {
-      const descriptor: any = Reflect.getOwnPropertyDescriptor(
-        constructor.prototype,
-        method,
-      );
-      GrpcStreamMethod('UserService', method)(
-        constructor.prototype[method],
-        method,
-        descriptor,
-      );
+      const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
+      GrpcStreamMethod("UserService", method)(constructor.prototype[method], method, descriptor);
     }
   };
 }
 
-export const USER_SERVICE_NAME = 'UserService';
+export const USER_SERVICE_NAME = "UserService";
